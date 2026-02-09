@@ -52,19 +52,19 @@ class OrganizationController extends Controller
 
         $org = Organization::where('name', $name)->firstOrFail();
 
-        // PARENTS
+        // parents
         $parents = $org->parents()->get()->map(fn($o) => [
             'relationship_type' => 'parent',
             'org_name' => $o->name,
         ]);
 
-        // DAUGHTERS
+        // daughters
         $daughters = $org->children()->get()->map(fn($o) => [
             'relationship_type' => 'daughter',
             'org_name' => $o->name,
         ]);
 
-        // SISTERS
+        // sisters
         $parentIds = $org->parents()->select('organizations.id')->pluck('id');
 
         $sisterIds = OrganizationRelation::whereIn('organization_id', $parentIds)
@@ -77,7 +77,7 @@ class OrganizationController extends Controller
             'org_name' => $o->name,
         ]);
 
-        // MERGE ALL
+        // merge
         $all = $parents->merge($sisters)->merge($daughters)
             ->sortBy('org_name')
             ->values();

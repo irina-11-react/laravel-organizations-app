@@ -18,7 +18,6 @@ class OrganizationRelationFactory extends Factory
         $org = Organization::inRandomOrder()->first();
         $related = Organization::inRandomOrder()->first();
 
-        // не допускаем self-relation
         while ($org->id === $related->id) {
             $related = Organization::inRandomOrder()->first();
         }

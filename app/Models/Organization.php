@@ -17,8 +17,8 @@ class Organization extends Model
         return $this->belongsToMany(
             Organization::class,
             'organization_relations',
-            'related_organization_id', // я = child
-            'organization_id'          // parent
+            'related_organization_id',
+            'organization_id'
         )->wherePivot('type', 'child');
     }
 
@@ -27,8 +27,8 @@ class Organization extends Model
         return $this->belongsToMany(
             Organization::class,
             'organization_relations',
-            'organization_id',      // я = parent
-            'related_organization_id' // child
+            'organization_id',
+            'related_organization_id'
         )->wherePivot('type', 'child');
     }
 }
